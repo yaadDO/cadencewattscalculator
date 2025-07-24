@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-
-import '../../../../responsive/constrained_scaffold.dart';
 import '../../../cadence/presentation/pages/cadence_page.dart';
 import '../../../watts/presentation/pages/watts_page.dart';
 

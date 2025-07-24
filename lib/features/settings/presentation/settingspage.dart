@@ -1,8 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
-import '../../../responsive/constrained_scaffold.dart';
 import '../../../themes/themeProvider.dart';
 
 class SettingsPage extends StatelessWidget {

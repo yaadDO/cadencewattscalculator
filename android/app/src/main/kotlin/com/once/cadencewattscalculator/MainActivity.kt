@@ -1,4 +1,4 @@
-package com.example.cadencewattscalculator
+package com.once.cadencewattscalculator
 
 import io.flutter.embedding.android.FlutterActivity
 

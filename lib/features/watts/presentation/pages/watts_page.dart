@@ -1,7 +1,5 @@
 import 'package:cadenceandwattscalc/features/drawer/drawer.dart';
 import 'package:flutter/material.dart';
-
-import '../../../../responsive/constrained_scaffold.dart';
 import '../../components/watt_repo.dart';
 
 class WattsPage extends StatefulWidget {

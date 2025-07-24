@@ -1,8 +1,6 @@
 import 'package:cadenceandwattscalc/features/info/components/infotext.dart';
 import 'package:flutter/material.dart';
 
-import '../../../responsive/constrained_scaffold.dart';
-
 class HelpPage extends StatelessWidget {
   const HelpPage({super.key});
 

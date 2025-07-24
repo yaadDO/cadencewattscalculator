@@ -60,7 +60,7 @@ class NavBar extends StatelessWidget {
               title: const Text('S H A R E'),
               leading: const Icon(Icons.share),
               onTap: () {
-                Share.share('com.once.cadenceandwattscalc');
+                Share.share('com.once.cadencewattscalculator');
               },
             ),
           ),

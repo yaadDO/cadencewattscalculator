@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../../responsive/constrained_scaffold.dart';
-
 class AboutPage extends StatelessWidget {
   const AboutPage({super.key});
 
@@ -18,7 +16,6 @@ class AboutPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text('This app is published by: Once Software'),
-            Text('App release date: TBD'),
             Text('Version Name: Beta'),
             Text('Version Number: 1.0'),
           ],

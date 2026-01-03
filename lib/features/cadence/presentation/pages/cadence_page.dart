@@ -11,15 +11,11 @@ class CadencePage extends StatefulWidget {
 }
 
 class _CadencePageState extends State<CadencePage> {
-  // Controllers for the input fields
   final TextEditingController _speedController = TextEditingController();
   final TextEditingController _frontGearController = TextEditingController();
   final TextEditingController _rearGearController = TextEditingController();
   final TextEditingController _wheelDiameterController = TextEditingController();
-
-  // StreamController to manage cadence updates
   final StreamController<double> _cadenceStreamController = StreamController<double>();
-
 
   @override
   void dispose() {
@@ -31,14 +27,12 @@ class _CadencePageState extends State<CadencePage> {
     super.dispose();
   }
 
-
-  /// Updates the cadence based on current input values
   void _updateCadence() {
     try {
       double speed = double.tryParse(_speedController.text) ?? 0.0;
-      double wheelDiameter = double.tryParse(_wheelDiameterController.text) ?? 680.0; // Default to 700 mm
-      int frontGear = int.tryParse(_frontGearController.text) ?? 53; // Default to 53 teeth
-      int rearGear = int.tryParse(_rearGearController.text) ?? 12; // Default to 12 teeth
+      double wheelDiameter = double.tryParse(_wheelDiameterController.text) ?? 680.0;
+      int frontGear = int.tryParse(_frontGearController.text) ?? 53;
+      int rearGear = int.tryParse(_rearGearController.text) ?? 12;
 
       double cadence = calculateCadence(
         speedKmPerHour: speed,
@@ -48,7 +42,7 @@ class _CadencePageState extends State<CadencePage> {
       );
       _cadenceStreamController.add(cadence);
     } catch (e) {
-      _cadenceStreamController.add(0.0); // Handle invalid inputs gracefully
+      _cadenceStreamController.add(0.0);
     }
   }
 
@@ -60,18 +54,17 @@ class _CadencePageState extends State<CadencePage> {
       ),
       drawer: const NavBar(),
       backgroundColor: Theme.of(context).colorScheme.surface,
-      body: Padding(
-        padding: const EdgeInsets.fromLTRB(10, 0, 10,10),
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.fromLTRB(10, 0, 10, 10),
         child: Column(
-          //crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-             Text(
+            Text(
               'Cadence:',
               style: TextStyle(
-                  fontSize: 25,
-                  fontWeight:
-                  FontWeight.bold,
-                  color: Theme.of(context).colorScheme.inversePrimary,),
+                fontSize: 25,
+                fontWeight: FontWeight.bold,
+                color: Theme.of(context).colorScheme.inversePrimary,
+              ),
             ),
             StreamBuilder<double>(
               stream: _cadenceStreamController.stream,
@@ -80,9 +73,9 @@ class _CadencePageState extends State<CadencePage> {
                 return Text(
                   snapshot.data!.toStringAsFixed(0),
                   style: TextStyle(
-                      fontSize: 45,
-                      fontWeight: FontWeight.bold,
-                      color: Theme.of(context).colorScheme.inversePrimary,
+                    fontSize: 45,
+                    fontWeight: FontWeight.bold,
+                    color: Theme.of(context).colorScheme.inversePrimary,
                   ),
                 );
               },
@@ -108,7 +101,6 @@ class _CadencePageState extends State<CadencePage> {
               onChanged: (_) => _updateCadence(),
             ),
             const SizedBox(height: 30),
-
             Row(
               children: [
                 Expanded(
@@ -122,7 +114,7 @@ class _CadencePageState extends State<CadencePage> {
                     onChanged: (_) => _updateCadence(),
                   ),
                 ),
-                const SizedBox(width: 16), // Add some spacing between the two text fields
+                const SizedBox(width: 16),
                 Expanded(
                   child: TextField(
                     controller: _rearGearController,
@@ -136,8 +128,8 @@ class _CadencePageState extends State<CadencePage> {
                 ),
               ],
             ),
-              ],
-            ),
+          ],
+        ),
       ),
     );
   }

@@ -17,11 +17,10 @@ class _WattsPageState extends State<WattsPage> {
   final List<double> lossValues = [92, 93, 94, 95, 96, 97, 98, 99];
   final List<double> CDAValues = [0.10, 0.12, 0.14, 0.16, 0.18, 0.20, 0.22, 0.24, 0.26, 0.28, 0.30, 0.32, 0.34, 0.36, 0.38, 0.40, 0.42, 0.44];
 
-  double selectedRR = 0.004; // Default rolling resistance
+  double selectedRR = 0.004;
   double selectedLoss = 99;
   double selectedCDA = 0.26;
 
-  // Function to validate input fields
   bool validateFields() {
     if (calculator.speedController.text.isEmpty ||
         calculator.slopeController.text.isEmpty ||
@@ -42,10 +41,9 @@ class _WattsPageState extends State<WattsPage> {
 
       double power = calculator.calculateWatts();
       setState(() {
-        result = "$power ";
+        result = "${power.toStringAsFixed(0)} W";
       });
     } else {
-      // Show error dialog if any field is empty
       showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -56,7 +54,7 @@ class _WattsPageState extends State<WattsPage> {
               TextButton(
                 child: const Text("OK"),
                 onPressed: () {
-                  Navigator.of(context).pop(); // Close the dialog
+                  Navigator.of(context).pop();
                 },
               ),
             ],
@@ -80,14 +78,12 @@ class _WattsPageState extends State<WattsPage> {
               'Watts:',
               style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
             ),
-
             Text(
               result,
               style: const TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
             ),
             Row(
               children: [
-
                 const Expanded(
                   child: Text("Speed:"),
                 ),
@@ -100,7 +96,6 @@ class _WattsPageState extends State<WattsPage> {
                 ),
               ],
             ),
-
             Row(
               children: [
                 const Expanded(
@@ -115,7 +110,6 @@ class _WattsPageState extends State<WattsPage> {
                 ),
               ],
             ),
-
             Row(
               children: [
                 const Expanded(
@@ -130,7 +124,6 @@ class _WattsPageState extends State<WattsPage> {
                 ),
               ],
             ),
-
             Row(
               children: [
                 const Expanded(
@@ -145,7 +138,6 @@ class _WattsPageState extends State<WattsPage> {
                 ),
               ],
             ),
-
             Row(
               children: [
                 const Expanded(
@@ -160,7 +152,6 @@ class _WattsPageState extends State<WattsPage> {
                 ),
               ],
             ),
-
             Row(
               children: [
                 const Expanded(
@@ -175,9 +166,7 @@ class _WattsPageState extends State<WattsPage> {
                 ),
               ],
             ),
-
             const SizedBox(height: 16),
-
             Row(
               children: [
                 const Expanded(
@@ -201,9 +190,7 @@ class _WattsPageState extends State<WattsPage> {
                 ),
               ],
             ),
-
             const SizedBox(height: 16),
-
             Row(
               children: [
                 const Expanded(
@@ -227,9 +214,7 @@ class _WattsPageState extends State<WattsPage> {
                 ),
               ],
             ),
-
             const SizedBox(height: 16),
-
             Row(
               children: [
                 const Expanded(
@@ -251,18 +236,16 @@ class _WattsPageState extends State<WattsPage> {
                 ),
               ],
             ),
-
-            const SizedBox(height: 16),
-
+            const SizedBox(height: 80), // Space for FAB at bottom
           ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: calculateWatts, // Your function
-        backgroundColor: Colors.blueGrey, // Optional: Change background color
+        onPressed: calculateWatts,
+        backgroundColor: Colors.blueGrey,
         child: const Icon(
           Icons.electric_bolt,
-          color: Colors.white, // Optional: Change icon color
+          color: Colors.white,
         ),
       ),
     );

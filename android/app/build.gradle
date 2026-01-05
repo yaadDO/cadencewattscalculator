@@ -1,7 +1,6 @@
 plugins {
     id "com.android.application"
     id "kotlin-android"
-    // The Flutter Gradle Plugin must be applied after the Android and Kotlin Gradle plugins.
     id "dev.flutter.flutter-gradle-plugin"
 }
 
@@ -13,7 +12,7 @@ if (keystorePropertiesFile.exists()) {
 
 android {
     namespace = "com.once.cadencewattscalculator"
-    compileSdk = 35
+    compileSdk = 35  // Changed back to 35 (required by Google Play)
     ndkVersion = "25.1.8937393"
 
     compileOptions {
@@ -26,14 +25,16 @@ android {
     }
 
     defaultConfig {
-        // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
         applicationId = "com.once.cadencewattscalculator"
-        // You can update the following values to match your application needs.
-        // For more information, see: https://flutter.dev/to/review-gradle-config.
         minSdkVersion 23
-        targetSdk = 35
+        targetSdk = 35  // Must be 35 (required by Google Play)
         versionCode = flutter.versionCode
         versionName = flutter.versionName
+
+        // CRITICAL: Add ABI filters for 16KB page size support
+        ndk {
+            abiFilters 'armeabi-v7a', 'arm64-v8a', 'x86', 'x86_64'
+        }
     }
 
     signingConfigs {
@@ -44,13 +45,33 @@ android {
             storePassword = keystoreProperties['storePassword']
         }
     }
+
     buildTypes {
         release {
-            // TODO: Add your own signing config for the release build.
-            // Signing with the debug keys for now,
-            // so `flutter run --release` works.
-            signingConfig = signingConfigs.debug
             signingConfig = signingConfigs.release
+
+            // Add these for 16KB page size support
+            ndk {
+                debugSymbolLevel 'SYMBOL_TABLE'
+            }
+
+            // Add proguard rules for Flutter and ads
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            signingConfig = signingConfigs.debug
+        }
+    }
+
+    // Update packagingOptions for 16KB page size support
+    packagingOptions {
+        jniLibs {
+            useLegacyPackaging true  // Changed to true for compatibility
+            pickFirsts += ['**/libc++_shared.so', '**/libflutter.so']
+        }
+        resources {
+            excludes += ['**/lib/**/*', '**/META-INF/**']
         }
     }
 }

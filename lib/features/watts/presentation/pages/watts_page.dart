@@ -236,7 +236,7 @@ class _WattsPageState extends State<WattsPage> {
                 ),
               ],
             ),
-            const SizedBox(height: 80), // Space for FAB at bottom
+            const SizedBox(height: 80),
           ],
         ),
       ),
